@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hodlinfo Clone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>HODLINFO</h1>
+      <div class="currency-toggle">
+        <button>INR</button>
+        <button>BTC</button>
+        <button>BUY BTC</button>
+      </div>
+      <div class="connect-telegram">
+        <button>Connect Telegram</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="price-info">
+    <div class="percentage-differences">
+      <div>
+        <h3 id="five-mins-change">0%</h3>
+        <p>5 Mins</p>
+      </div>
+      <div>
+        <h3 id="one-hour-change">0%</h3>
+        <p>1 Hour</p>
+      </div>
+      <div>
+        <h3 id="one-day-change">0%</h3>
+        <p>1 Day</p>
+      </div>
+      <div>
+        <h3 id="seven-days-change">0%</h3>
+        <p>7 Days</p>
+      </div>
+    </div>
+    <div class="price">
+      <h2 id="average-price">₹ 0</h2>
+      <p>Average BTC/INR net price including commission</p>
+    </div>
+  </section>
+
+  <section class="trading-table">
+    <table id="tickers-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Platform</th>
+          <th>Last Traded Price</th>
+          <th>Buy / Sell Price</th>
+          <th>Difference</th>
+          <th>Savings</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="add-to-home">
+      <button>Add hodlinfo to home screen</button>
+    </div>
+  </section>
+
+  <script>
+   function fetchData(){
+     fetch('http://localhost:3000/api/tickers')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#tickers-table tbody');
+        tableBody.innerHTML = '';
+        let index = 1;
+        data.forEach(ticker => {
+          const row = `
+            <tr>
+              <td>${index}</td>
+              <td>${ticker.name}</td>
+              <td>₹ ${parseFloat(ticker.last).toLocaleString()}</td>
+              <td>₹ ${parseFloat(ticker.buy).toLocaleString()} / ₹ ${parseFloat(ticker.sell).toLocaleString()}</td>
+              <td>${(ticker.sell-ticker.buy)/100}%</td>
+              <td>₹ ${parseFloat(ticker.sell- ticker.buy).toLocaleString()}</td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+          index++;
+        });
+
+      
+    const averagePrice = calculateAveragePrice(ticker);
+    document.getElementById('average-price').innerText = `₹ ${averagePrice.toLocaleString()}`;
+
+    const buyPrice = parseFloat(ticker.buy);
+    const sellPrice = parseFloat(ticker.sell);
+    const fiveMinsChange = ((sellPrice - buyPrice) / buyPrice) * 100;
+    document.getElementById('five-mins-change').innerText = `${fiveMinsChange.toFixed(2)}%`;
+    const lastPrice = parseFloat(ticker.last);
+    const openPrice = parseFloat(ticker.open);
+    const oneHourChange = ((lastPrice - openPrice) / openPrice) * 100;
+    document.getElementById('one-hour-change').innerText = `${oneHourChange.toFixed(2)}%`;
+
+    const oneDayChange = ((lastPrice - openPrice) / openPrice) * 100; 
+    const sevenDaysChange = ((lastPrice - openPrice) / openPrice) * 100; 
+
+    document.getElementById('one-day-change').innerText = `${oneDayChange.toFixed(2)}%`;
+    
+      })
+      .catch(error => console.error('Error fetching data:', error));
+
+    function calculateAveragePrice(tickers) {
+      let total = 0;
+      tickers.forEach(ticker => {
+        total += parseFloat(ticker.last);
+      });
+      return total / tickers.length;
+    }}
+
+    fetchData();
+   setInterval(fetchData, 60000); 
+
+  </script>
+
+</body>
+</html

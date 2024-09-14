@@ -1,0 +1,92 @@
+body {
+  background-color: #131722;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: #00FFF6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1B2330;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+.currency-toggle button, .connect-telegram button {
+  background-color: #1B2330;
+  border: 1px solid #00FFF6;
+  color: #00FFF6;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.price-info {
+  text-align: center;
+  padding: 30px;
+  background-color: #131722;
+  border-bottom: 1px solid #282D36;
+}
+
+.percentage-differences {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+
+.percentage-differences div {
+  text-align: center;
+}
+
+.price h2 {
+  font-size: 48px;
+}
+
+.trading-table {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #282D36;
+}
+
+thead th {
+  color: #00FFF6;
+}
+
+.add-to-home button {
+  background-color: #1B2330;
+  border: 1px solid #00FFF6;
+  color: #00FFF6;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+}
