@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 const app = express();
 app.use(cors({
-    origin: 'http://127.0.0.1:63317'
+    origin: '*',
   }));
 
 const pool = new Pool({
