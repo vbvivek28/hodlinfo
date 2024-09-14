@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 const app = express();
 
-const allowedOrigins = ['https://hodlinfo-client.vercel.app'];
+const allowedOrigins = ['https://hodlinfo-client.vercel.app','http://localhost:63317'];
 
 app.use(cors({
   origin: function(origin, callback){
@@ -26,14 +26,13 @@ const pool = new Pool({
 
 app.use(express.json());
 
-// Fetch top 10 results from API and store in DB
 async function fetchAndStoreData() {
   try {
     const response = await axios.get('https://api.wazirx.com/api/v2/tickers');
     const tickers = Object.values(response.data).slice(0, 10);
 
     const client = await pool.connect();
-    await client.query('DELETE FROM tickers'); // Clear previous data
+    await client.query('DELETE FROM tickers');
 
     tickers.forEach(async ticker => {
       await client.query(
@@ -47,10 +46,8 @@ async function fetchAndStoreData() {
   }
 }
 
-// Run fetch function every time server starts
 fetchAndStoreData();
 
-// Route to get data from DB
 app.get('/api/tickers', async (req, res) => {
   try {
     const client = await pool.connect();

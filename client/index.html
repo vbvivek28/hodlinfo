@@ -68,7 +68,7 @@
 
   <script>
    function fetchData(){
-     fetch('https://hodlinfo-server-ten.vercel.app/api/tickers')
+     fetch('http://localhost:3000/api/tickers')
       .then(response => response.json())
       .then(data => {
         const tableBody = document.querySelector('#tickers-table tbody');
