@@ -4,10 +4,18 @@ const { Pool } = require('pg');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
-app.use(cors({
-    origin: 'https://hodlinfo-client.vercel.app/',
-  }));
 
+const allowedOrigins = ['https://hodlinfo-client.vercel.app'];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if (!origin || allowedOrigins.indexOf(origin) !== -1){
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}));
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
