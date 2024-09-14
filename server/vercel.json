@@ -8,14 +8,14 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "/",
+        "src": "/api/tickers",
+        "dest": "/app.js",
         "headers": {
-           "Access-Control-Allow-Credentials": "true" ,
-            "Access-Control-Allow-Origin": "https://hodlinfo-client.vercel.app" ,
-           "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-        }
+            "Access-Control-Allow-Credentials": "true" ,
+             "Access-Control-Allow-Origin": "https://hodlinfo-client.vercel.app" ,
+            "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+         }
       }
     ]
-
   }
+  
